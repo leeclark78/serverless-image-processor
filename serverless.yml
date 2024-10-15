@@ -1,0 +1,22 @@
+service: serverless-image-processor
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  stage: ${opt:stage, 'dev'}
+  region: ${opt:region, 'us-east-1'}
+
+functions:
+  uploadImage:
+    handler: src/functions/uploadImage.handler
+    events:
+      - http:
+          path: upload
+          method: post
+  processImage:
+    handler: src/functions/processImage.handler
+  storeResults:
+    handler: src/functions/storeResults.handler
+
+resources:
+  # We'll add resources here later
